@@ -16,8 +16,11 @@ authentication:
   authorizationUrl: adsfasdf
   accessTokenUrl: asdfasdfa
   clientSecret: asdfasdfasdf
+preRequestScript: null
 metaSortKey: -1663679425489
 isPrivate: false
+pathParameters: null
+afterResponseScript: null
 settingStoreCookies: true
 settingSendCookies: true
 settingDisableRenderRequestBody: false

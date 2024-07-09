@@ -23,8 +23,11 @@ authentication:
   type: basic
   username: "{{ httpUsername }}"
   password: "{{ httpPassword }}"
+preRequestScript: null
 metaSortKey: -1639600569140
 isPrivate: false
+pathParameters: null
+afterResponseScript: null
 settingStoreCookies: true
 settingSendCookies: true
 settingDisableRenderRequestBody: false

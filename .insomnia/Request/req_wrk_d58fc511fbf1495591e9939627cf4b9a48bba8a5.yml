@@ -17,8 +17,11 @@ headers:
     disabled: false
     value: "{{ xAppVersion }}"
 authentication: {}
+preRequestScript: null
 metaSortKey: -1639600569156
 isPrivate: false
+pathParameters: null
+afterResponseScript: null
 settingStoreCookies: true
 settingSendCookies: true
 settingDisableRenderRequestBody: false
