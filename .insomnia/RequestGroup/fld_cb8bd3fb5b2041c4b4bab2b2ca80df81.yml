@@ -1,0 +1,14 @@
+_id: fld_cb8bd3fb5b2041c4b4bab2b2ca80df81
+type: RequestGroup
+parentId: wrk_d58fc511fbf1495591e9939627cf4b9a
+modified: 1721050929701
+created: 1721050929701
+name: My Folder replace with uuid
+description: ""
+environment: {}
+environmentPropertyOrder: null
+metaSortKey: -1721050929701
+preRequestScript: null
+afterResponseScript: null
+authentication: null
+headers: null
