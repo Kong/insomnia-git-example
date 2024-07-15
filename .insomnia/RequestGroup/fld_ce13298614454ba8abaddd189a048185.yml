@@ -1,0 +1,14 @@
+_id: fld_ce13298614454ba8abaddd189a048185
+type: RequestGroup
+parentId: wrk_d58fc511fbf1495591e9939627cf4b9a
+modified: 1721050845866
+created: 1721050845866
+name: My Folder test
+description: ""
+environment: {}
+environmentPropertyOrder: null
+metaSortKey: -1721050845866
+preRequestScript: null
+afterResponseScript: null
+authentication: null
+headers: null
