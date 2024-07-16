@@ -1,0 +1,20 @@
+name: Test
+
+jobs:
+  Linux:
+    name: gitOps flow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+      - uses: kong/setup-inso@v1
+        with:
+          inso-version: 9.3.3
+      - name: Lint
+        run: inso lint spec -w . spc_5eb712
+      - name: Lint by path
+        run: inso lint spec spec.yaml
+      - name: Print spec to stdout
+        run: inso export spec spec.yaml
+      # - name: Run collection
+      #   run: inso run collection -w . -e env_env_7c2769 wrk_d58fc5
