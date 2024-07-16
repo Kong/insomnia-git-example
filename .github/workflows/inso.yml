@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v1
-      - uses: kong/setup-inso@aa8af4fec243e92c17a1515541b0c8726246d9d0
+      - uses: kong/setup-inso@v1.1.3
         with:
           inso-version: 9.3.3
       - name: Lint
