@@ -13,6 +13,7 @@ jobs:
       - uses: kong/setup-inso@v1.1.4
         with:
           inso-version: 9.3.2
+          compression: gzip
       - name: Lint
         run: inso lint spec -w . spc_5eb712
       - name: Lint by path
