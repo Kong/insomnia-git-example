@@ -1,0 +1,14 @@
+_id: fld_e4458206793948178b8e90ec062f3441
+type: RequestGroup
+parentId: wrk_d58fc511fbf1495591e9939627cf4b9a
+modified: 1725440803684
+created: 1725440803684
+name: My Folder 36e8de3f-ceaa-4d8d-8fee-ebe8b7f27bb8
+description: ""
+environment: {}
+environmentPropertyOrder: null
+metaSortKey: -1725440803684
+preRequestScript: null
+afterResponseScript: null
+authentication: null
+headers: null
