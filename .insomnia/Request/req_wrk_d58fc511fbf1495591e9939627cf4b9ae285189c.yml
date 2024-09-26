@@ -28,7 +28,6 @@ metaSortKey: -1639600569140
 isPrivate: false
 pathParameters: null
 afterResponseScript: null
-operationType: null
 settingStoreCookies: true
 settingSendCookies: true
 settingDisableRenderRequestBody: false
