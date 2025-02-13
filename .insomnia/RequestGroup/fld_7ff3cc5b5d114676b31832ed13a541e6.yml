@@ -1,0 +1,15 @@
+_id: fld_7ff3cc5b5d114676b31832ed13a541e6
+type: RequestGroup
+parentId: wrk_d58fc511fbf1495591e9939627cf4b9a
+modified: 1739415831490
+created: 1739415831490
+name: My Folder b4a6422e-2081-4e5b-bead-b568333c944f
+description: ""
+environment: {}
+environmentPropertyOrder: null
+metaSortKey: -1739415831490
+preRequestScript: null
+afterResponseScript: null
+authentication: null
+headers: null
+environmentType: kv
