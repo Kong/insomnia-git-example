@@ -1,0 +1,302 @@
+type: spec.insomnia.rest/5.0
+name: Endpoint Security 1.2
+meta:
+  id: wrk_d58fc511fbf1495591e9939627cf4b9a
+  created: 1639600546875
+  modified: 1639600569168
+  description: ""
+collection:
+  - url: "{{ base_url }}/all"
+    name: /all
+    meta:
+      id: req_wrk_d58fc511fbf1495591e9939627cf4b9ae285189c
+      created: 1639600569140
+      modified: 1639600569140
+      isPrivate: false
+      description: ""
+      sortKey: -1639600569140
+    method: GET
+    parameters:
+      - name: key
+        disabled: false
+        value: "{{ key }}"
+    headers:
+      - name: x-api_key
+        disabled: false
+        value: "{{ xApiKey }}"
+      - name: Cookie
+        disabled: false
+        value: CookieName={{ cookieName }}
+    authentication:
+      type: basic
+      username: "{{ httpUsername }}"
+      password: "{{ httpPassword }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ base_url }}/key/header"
+    name: /key/header
+    meta:
+      id: req_wrk_d58fc511fbf1495591e9939627cf4b9a48bba8a5
+      created: 1639600569156
+      modified: 1639600569156
+      isPrivate: false
+      description: ""
+      sortKey: -1639600569156
+    method: GET
+    headers:
+      - name: x-api_key
+        disabled: false
+        value: "{{ xApiKey }}"
+      - name: x-app-version
+        disabled: false
+        value: "{{ xAppVersion }}"
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: mockbin.org
+    name: Mockbin
+    meta:
+      id: req_8f90825b70674a689475e5a96e84ec28
+      created: 1663679425489
+      modified: 1663679733062
+      isPrivate: false
+      description: ""
+      sortKey: -1663679425489
+    method: GET
+    authentication:
+      type: oauth2
+      grantType: authorization_code
+      authorizationUrl: adsfasdf
+      accessTokenUrl: asdfasdfa
+      clientSecret: asdfasdfasdf
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: mockbin.org/12345
+    name: New Request
+    meta:
+      id: req_ace2887f5b584d79947ba11f9e628397
+      created: 1663680536013
+      modified: 1663682023960
+      isPrivate: false
+      description: ""
+      sortKey: -1663680536013
+    method: GET
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: ""
+    name: Test
+    meta:
+      id: req_24779fe123164fde9901eb7cfd649ae5
+      created: 1663682060582
+      modified: 1663751746993
+      isPrivate: false
+      description: ""
+      sortKey: -1663682060582
+    method: GET
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+environments:
+  name: Base environment
+  meta:
+    id: env_7c2769239b7a889ba348c82883908cdf238ed89a
+    created: 1639600546883
+    modified: 1639600569167
+    isPrivate: false
+  data:
+    base_url: "{{ scheme }}://{{ host }}{{ base_path }}"
+  subEnvironments:
+    - name: OpenAPI env
+      meta:
+        id: env_env_7c2769239b7a889ba348c82883908cdf238ed89a_sub
+        created: 1639600569165
+        modified: 1639600569165
+        isPrivate: false
+        sortKey: 1639600569165
+      data:
+        scheme: https
+        base_path: /v1
+        host: api.server.test
+        xApiKey: xApiKey
+        xAppVersion: xAppVersion
+        cookieName: cookieName
+        anotherCookieName: anotherCookieName
+        key: key
+        anotherKey: anotherKey
+        httpUsername: username
+        httpPassword: password
+        bearerToken: bearerToken
+        oauth2ClientId: clientId
+        oauth2ClientSecret: clientSecret
+        oauth2Username: username
+        oauth2Password: password
+spec:
+  contents:
+    openapi: 3.0.0
+    info:
+      title: Endpoint Security
+      version: "1.2"
+    servers:
+      - url: https://api.server.test/v3
+    components:
+      securitySchemes:
+        Basic:
+          type: http
+          scheme: basic
+        Bearer:
+          type: http
+          scheme: bearer
+        Key-Header:
+          type: apiKey
+          name: x-api_key
+          in: header
+        AnotherKey-Header:
+          type: apiKey
+          name: x-app-version
+          in: header
+        Key-Cookie:
+          type: apiKey
+          name: CookieName
+          in: cookie
+        AnotherKey-Cookie:
+          type: apiKey
+          name: AnotherCookieName
+          in: cookie
+        Key-Query:
+          type: apiKey
+          name: key
+          in: query
+        AnotherKey-Query:
+          type: apiKey
+          name: another_key
+          in: query
+        OAuth2-AuthorizationCode:
+          type: oauth2
+          scheme: bearer
+          flows:
+            authorizationCode:
+              authorizationUrl: https://api.server.test/v1/auth
+              tokenUrl: https://api.server.test/v1/token
+              scopes:
+                read:something: Read all the data
+                write:something: Write all the data
+        OAuth2-Implicit:
+          type: oauth2
+          scheme: bearer
+          flows:
+            implicit:
+              authorizationUrl: https://api.server.test/v1/auth
+              scopes:
+                read:something: Read all the data
+                write:something: Write all the data
+        OAuth2-ClientCredentials:
+          type: oauth2
+          scheme: bearer
+          flows:
+            clientCredentials:
+              tokenUrl: https://api.server.test/v1/token
+              scopes:
+                read:something: Read all the data
+                write:something: Write all the data
+        OAuth2-Password:
+          type: oauth2
+          scheme: bearer
+          flows:
+            password:
+              tokenUrl: https://api.server.test/v1/token
+              scopes:
+                read:something: Read all the data
+                write:something: Write all the data
+    paths:
+      /none:
+        get:
+          responses:
+            "200":
+              description: OK
+      /none/basic:
+        get:
+          responses:
+            "200":
+              description: OK
+      /basic:
+        get:
+          responses:
+            "200":
+              description: OK
+      /bearer:
+        get:
+          responses:
+            "200":
+              description: OK
+      /key/header:
+        get:
+          responses:
+            "200":
+              description: OK
+      /key/cookie:
+        get:
+          responses:
+            "200":
+              description: OK
+      /key/query:
+        get:
+          responses:
+            "200":
+              description: OK
+      /oauth2/authorization-code:
+        get:
+          responses:
+            "200":
+              description: OK
+      /oauth2/implicit:
+        get:
+          responses:
+            "200":
+              description: OK
+      /oauth2/client-credentials:
+        get:
+          responses:
+            "200":
+              description: OK
+      /oauth2/password:
+        get:
+          responses:
+            "200":
+              description: OK
+      /all:
+        get:
+          responses:
+            "200":
+              description: OK
+  meta:
+    id: spc_5eb712667d224bad81878f64e08415ec
+    created: 1639600546876
+    modified: 1691756775872
