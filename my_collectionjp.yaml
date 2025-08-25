@@ -6,12 +6,12 @@ meta:
   modified: 1756132141432
   description: ""
 collection:
-  - url: www.google.com
+  - url: www.google.co
     name: New Request
     meta:
       id: req_203482abdee74130bd4b008fd7004d8e
       created: 1756132144056
-      modified: 1756132148707
+      modified: 1756132776805
       isPrivate: false
       description: ""
       sortKey: -1756132144056
