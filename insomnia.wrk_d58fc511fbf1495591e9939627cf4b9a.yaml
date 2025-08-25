@@ -18,14 +18,12 @@ collection:
     method: GET
     parameters:
       - name: key
-        disabled: false
         value: "{{ key }}"
+        disabled: false
     headers:
       - name: x-api_key
-        disabled: false
         value: "{{ xApiKey }}"
       - name: Cookie
-        disabled: false
         value: CookieName={{ cookieName }}
     authentication:
       type: basic
@@ -51,10 +49,8 @@ collection:
     method: GET
     headers:
       - name: x-api_key
-        disabled: false
         value: "{{ xApiKey }}"
       - name: x-app-version
-        disabled: false
         value: "{{ xAppVersion }}"
     settings:
       renderRequestBody: true
@@ -77,8 +73,8 @@ collection:
     authentication:
       type: oauth2
       grantType: authorization_code
-      authorizationUrl: adsfasdf
       accessTokenUrl: asdfasdfa
+      authorizationUrl: adsfasdf
       clientSecret: asdfasdfasdf
     settings:
       renderRequestBody: true
@@ -124,6 +120,12 @@ collection:
         send: true
         store: true
       rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_7c2769239b7a889ba348c82883908cdf238ed89a
+    created: 1756132546608
+    modified: 1756132546608
 environments:
   name: Base environment
   meta:
