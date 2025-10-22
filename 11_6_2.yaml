@@ -43,7 +43,7 @@ collection:
     meta:
       id: req_d62066c8756c484497e818a06ed5a296
       created: 1761127064995
-      modified: 1761127071628
+      modified: 1761127235157
       isPrivate: false
       description: ""
       sortKey: -1761126020580
@@ -61,6 +61,11 @@ collection:
         name: foo
         value: bar
         description: ""
+        disabled: true
+      - id: pair_3f20fa6f3e954f5aafbea320835abb68
+        name: disabled-header
+        value: foo
+        description: desc
         disabled: true
     settings:
       renderRequestBody: true
