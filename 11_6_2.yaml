@@ -38,6 +38,38 @@ collection:
         send: true
         store: true
       rebuildPath: true
+  - url: https://httpbin.org/anything
+    name: New Disabled Header
+    meta:
+      id: req_d62066c8756c484497e818a06ed5a296
+      created: 1761127064995
+      modified: 1761127071628
+      isPrivate: false
+      description: ""
+      sortKey: -1761126020580
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.2
+        id: pair_40cf4693c1a54173a7aa8ca0393f839e
+      - id: pair_4819480603544b26a2447c4fd7fcd09b
+        name: foo
+        value: bar
+        description: ""
+        disabled: false
+      - id: pair_a2951d3b199b40e08be0a8f2dc4ec749
+        name: foo
+        value: bar
+        description: ""
+        disabled: true
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
