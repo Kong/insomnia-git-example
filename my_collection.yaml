@@ -11,7 +11,7 @@ collection:
     meta:
       id: req_748149568444450fa0d609ff8ca800a0
       created: 1761126647433
-      modified: 1761126660482
+      modified: 1761126688710
       isPrivate: false
       description: ""
       sortKey: -1761126647433
@@ -24,7 +24,7 @@ collection:
         name: foo
         value: bar
         description: ""
-        disabled: false
+        disabled: true
       - id: pair_95c4290259f24b128aedc7914d615dbb
         name: foo
         value: bar2
