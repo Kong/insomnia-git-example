@@ -6,12 +6,19 @@ meta:
   modified: 1756132141432
   description: ""
 collection:
+  - name: Hello world
+    meta:
+      id: fld_481ef770b5df4905ac9559e5ea1ea228
+      created: 1761125411325
+      modified: 1761125411325
+      sortKey: -1761125411325
+      description: ""
   - url: www.google.co
     name: New Request
     meta:
       id: req_203482abdee74130bd4b008fd7004d8e
       created: 1756132144056
-      modified: 1756132776805
+      modified: 1761125590767
       isPrivate: false
       description: ""
       sortKey: -1756132144056
@@ -19,6 +26,9 @@ collection:
     headers:
       - name: User-Agent
         value: insomnia/11.5.0-beta.4
+    scripts:
+      preRequest: ""
+      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true
