@@ -6,6 +6,13 @@ meta:
   modified: 1761126643282
   description: ""
 collection:
+  - name: My Folder
+    meta:
+      id: fld_3a817c43facf4622a4e9bd1458f7ec96
+      created: 1761234899231
+      modified: 1761234899231
+      sortKey: -1761234899231
+      description: ""
   - url: ""
     name: New Request
     meta:
