@@ -75,16 +75,66 @@ collection:
         send: true
         store: true
       rebuildPath: true
+  - name: An Empty Folder
+    meta:
+      id: fld_6d828dbb66d14d4ea8ceecbf8295a80a
+      created: 1761211457907
+      modified: 1761211457907
+      sortKey: -1761211457907
+      description: ""
+  - url: wss://ws.ifelse.io/
+    name: New Socket.IO Request
+    meta:
+      id: socketio-req_825428f7c35549228b6459adb5f45429
+      created: 1761211376961
+      modified: 1761211431723
+      description: ""
+      sortKey: -1761211376961
+    settings:
+      encodeUrl: true
+      cookies:
+        send: true
+        store: true
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.2
+    eventListeners:
+      - id: socketIO-event_b0b0ce1678b94e5b8ae38138853cafc3
+        eventName: test-event
+        desc: event-description
+        isOpen: false
 cookieJar:
   name: Default Jar
   meta:
     id: jar_58f5fff327718214a78c5d6b0d45f7a5b6e3c08a
     created: 1761126876382
     modified: 1761126876382
+  cookies:
+    - id: a932dbb0-3da2-4b8f-aac5-da6a31847666
+      key: foo
+      value: bar
+      domain: httpbin.org
+      path: /
+      secure: true
+      httpOnly: true
+      hostOnly: true
 environments:
   name: Base Environment
   meta:
     id: env_58f5fff327718214a78c5d6b0d45f7a5b6e3c08a
     created: 1761126876381
-    modified: 1761126876381
+    modified: 1761211498211
     isPrivate: false
+  data:
+    env-key: env-value
+  subEnvironments:
+    - name: New Environment
+      meta:
+        id: env_4bec71c1e4344911a44a87b9a6db6345
+        created: 1761211503871
+        modified: 1761211519107
+        isPrivate: false
+        sortKey: 1761211503871
+      data:
+        env-key: env-name
+        var-env: "{% os 'arch', '' %}"
