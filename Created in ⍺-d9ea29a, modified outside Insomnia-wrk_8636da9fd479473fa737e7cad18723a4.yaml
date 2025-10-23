@@ -1,5 +1,4 @@
 type: collection.insomnia.rest/5.0
-schema_version: "5.1"
 name: Created in ⍺-d9ea29a, modified outside Insomnia
 meta:
   id: wrk_8636da9fd479473fa737e7cad18723a4
@@ -20,8 +19,6 @@ collection:
     headers:
       - name: User-Agent
         value: insomnia/11.6.2-alpha-pr-d9ea29a.0
-        description: ""
-        disabled: false
     settings:
       renderRequestBody: true
       encodeUrl: true
