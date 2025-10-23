@@ -1,0 +1,1529 @@
+type: spec.insomnia.rest/5.0
+name: Mega Platform API 2025-10-13 - 11.6.2
+meta:
+  id: wrk_e0aee07f559f4f5594025d0b27a783f0
+  created: 1761212175845
+  modified: 1761212247590
+  description: ""
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_bb0ffdabc0de73768566f8acfa8ef3c6afca58da
+    created: 1761212190299
+    modified: 1761212190299
+environments:
+  name: Base Environment
+  meta:
+    id: env_bb0ffdabc0de73768566f8acfa8ef3c6afca58da
+    created: 1761212175853
+    modified: 1761212175853
+    isPrivate: false
+spec:
+  contents:
+    openapi: 3.1.0
+    info:
+      title: Mega Platform API
+      version: 2025-10-13
+      summary: A comprehensive example API spec spanning auth, users, commerce, files,
+        search, analytics, notifications, batching, and webhooks.
+      description: >
+        This is a large, feature-rich OpenAPI 3.1 specification demonstrating
+        many patterns:
+
+        - CRUD endpoints (GET/POST/PUT/PATCH/DELETE)
+
+        - Diverse content types (application/json, application/xml,
+        application/x-www-form-urlencoded, multipart/form-data, text/csv,
+        text/plain, application/ndjson)
+
+        - Rich parameterization (path, query, header, cookie)
+
+        - Pagination styles (page/limit, cursor, offset),
+        filtering/sorting/field selection
+
+        - Security schemes (Bearer JWT, API key, OAuth2, mTLS)
+
+        - Re-usable components for headers, examples, parameters, requestBodies,
+        responses, schemas, and callbacks
+
+        - Uploads & downloads, idempotency, bulk operations, async jobs,
+        callbacks, and webhooks
+
+        - Vendor extensions for pre-request and post-response scripts
+        (Postman-style JS) via `x-prerequest-script` and `x-postresponse-script`
+    servers:
+      - url: https://api.megaplatform.com/{version}
+        description: Production
+        variables:
+          version:
+            default: v1
+            enum:
+              - v1
+              - v2
+      - url: https://staging.api.megaplatform.com/{version}
+        description: Staging
+        variables:
+          version:
+            default: v1
+            enum:
+              - v1
+      - url: http://localhost:8080/{version}
+        description: Local
+        variables:
+          version:
+            default: v1
+    security:
+      - OAuth2:
+          - read
+          - write
+    x-rateLimits:
+      default:
+        perMinute: 120
+        burst: 60
+      elevated:
+        perMinute: 1000
+    x-prerequest-script: |
+      // Runs before all requests unless overridden at the operation level
+      const timestamp = new Date().toISOString();
+      request.headers.set('X-Client-Time', timestamp);
+      if (!request.headers.has('X-Request-Id')) {
+        request.headers.set('X-Request-Id', crypto.randomUUID());
+      }
+    x-postresponse-script: >
+      // Runs after responses unless overridden at the operation level
+
+      if (response.headers.get('x-ratelimit-remaining') === '0') {
+        console.warn('Rate limit exhausted. Retry-After:', response.headers.get('retry-after'));
+      }
+    paths:
+      /auth/token:
+        post:
+          tags:
+            - Auth
+          summary: Exchange credentials for an access token (OAuth2 Password or Client
+            Credentials)
+          operationId: issueToken
+          requestBody:
+            required: true
+            content:
+              application/x-www-form-urlencoded:
+                schema:
+                  type: object
+                  properties:
+                    grant_type:
+                      type: string
+                      enum:
+                        - password
+                        - client_credentials
+                        - refresh_token
+                    client_id:
+                      type: string
+                    client_secret:
+                      type: string
+                    username:
+                      type: string
+                    password:
+                      type: string
+                    scope:
+                      type: string
+                    refresh_token:
+                      type: string
+                  required:
+                    - grant_type
+                    - client_id
+          responses:
+            "200":
+              description: Access token
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/TokenResponse"
+            "400":
+              $ref: "#/components/responses/BadRequest"
+            "401":
+              $ref: "#/components/responses/Unauthorized"
+      /auth/refresh:
+        post:
+          tags:
+            - Auth
+          summary: Refresh an access token
+          operationId: refreshToken
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    refresh_token:
+                      type: string
+                  required:
+                    - refresh_token
+          responses:
+            "200":
+              description: New access token
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/TokenResponse"
+            "401":
+              $ref: "#/components/responses/Unauthorized"
+      /users:
+        get:
+          tags:
+            - Users
+          summary: List users (paged)
+          operationId: listUsers
+          parameters:
+            - $ref: "#/components/parameters/page"
+            - $ref: "#/components/parameters/limit"
+            - $ref: "#/components/parameters/sort"
+            - $ref: "#/components/parameters/fields"
+            - in: query
+              name: role
+              schema:
+                type: string
+                enum:
+                  - owner
+                  - admin
+                  - member
+            - in: header
+              name: X-Request-Id
+              schema:
+                type: string
+              required: false
+          responses:
+            "200":
+              description: A paginated list of users
+              headers:
+                X-Total-Count:
+                  $ref: "#/components/headers/X-Total-Count"
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/PaginatedUsers"
+                application/xml:
+                  schema:
+                    $ref: "#/components/schemas/PaginatedUsers"
+            "401":
+              $ref: "#/components/responses/Unauthorized"
+        post:
+          tags:
+            - Users
+          summary: Create a user
+          operationId: createUser
+          x-prerequest-script: |
+            // Attach an HMAC signature
+            const body = JSON.stringify(request.bodyJSON);
+            const sig = hmac('sha256', env.SECRET, body);
+            request.headers.set('X-Signature', sig);
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserCreate"
+                examples:
+                  basic:
+                    value:
+                      email: sam@example.com
+                      name: Sam
+                      locale: en
+                      role: member
+              application/xml:
+                schema:
+                  $ref: "#/components/schemas/UserCreate"
+              application/x-www-form-urlencoded:
+                schema:
+                  $ref: "#/components/schemas/UserCreate"
+          responses:
+            "201":
+              description: Created
+              headers:
+                Location:
+                  description: Resource URL
+                  schema:
+                    type: string
+                    format: uri
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/User"
+            "409":
+              $ref: "#/components/responses/Conflict"
+      /users/{userId}:
+        parameters:
+          - $ref: "#/components/parameters/userId"
+        get:
+          tags:
+            - Users
+          summary: Get a user by ID
+          operationId: getUser
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/User"
+            "404":
+              $ref: "#/components/responses/NotFound"
+        put:
+          tags:
+            - Users
+          summary: Replace a user
+          operationId: replaceUser
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserReplace"
+          responses:
+            "200":
+              $ref: "#/components/responses/UpdatedUser"
+            "412":
+              $ref: "#/components/responses/PreconditionFailed"
+        patch:
+          tags:
+            - Users
+          summary: Update a user
+          operationId: updateUser
+          parameters:
+            - $ref: "#/components/parameters/ifMatch"
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserUpdate"
+          responses:
+            "200":
+              $ref: "#/components/responses/UpdatedUser"
+            "409":
+              $ref: "#/components/responses/Conflict"
+        delete:
+          tags:
+            - Users
+          summary: Delete a user
+          operationId: deleteUser
+          responses:
+            "204":
+              description: No Content
+            "404":
+              $ref: "#/components/responses/NotFound"
+      /users/{userId}/avatar:
+        put:
+          tags:
+            - Users
+            - Files
+          summary: Upload/replace a user avatar
+          operationId: putUserAvatar
+          parameters:
+            - $ref: "#/components/parameters/userId"
+          requestBody:
+            required: true
+            content:
+              multipart/form-data:
+                schema:
+                  type: object
+                  properties:
+                    file:
+                      type: string
+                      format: binary
+                    alt:
+                      type: string
+          responses:
+            "200":
+              description: Updated avatar
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UploadResult"
+            "413":
+              $ref: "#/components/responses/PayloadTooLarge"
+      /products:
+        get:
+          tags:
+            - Commerce
+          summary: List products with filtering
+          operationId: listProducts
+          parameters:
+            - $ref: "#/components/parameters/page"
+            - $ref: "#/components/parameters/limit"
+            - in: query
+              name: q
+              description: Full-text search query
+              schema:
+                type: string
+            - in: query
+              name: price_min
+              schema:
+                type: number
+                format: float
+            - in: query
+              name: price_max
+              schema:
+                type: number
+                format: float
+            - in: query
+              name: tags
+              description: Filter by tag(s)
+              schema:
+                type: array
+                items:
+                  type: string
+                style: form
+                explode: false
+          responses:
+            "200":
+              description: Product page
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/PaginatedProducts"
+        post:
+          tags:
+            - Commerce
+          summary: Create a product
+          operationId: createProduct
+          parameters:
+            - $ref: "#/components/parameters/idempotencyKey"
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ProductCreate"
+              application/xml:
+                schema:
+                  $ref: "#/components/schemas/ProductCreate"
+          responses:
+            "201":
+              description: Created
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Product"
+      /products/{productId}:
+        parameters:
+          - $ref: "#/components/parameters/productId"
+        get:
+          tags:
+            - Commerce
+          summary: Get product by ID
+          operationId: getProduct
+          responses:
+            "200":
+              $ref: "#/components/responses/ProductOk"
+            "404":
+              $ref: "#/components/responses/NotFound"
+        put:
+          tags:
+            - Commerce
+          summary: Replace product
+          operationId: replaceProduct
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ProductReplace"
+          responses:
+            "200":
+              $ref: "#/components/responses/ProductOk"
+        patch:
+          tags:
+            - Commerce
+          summary: Update product
+          operationId: updateProduct
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ProductUpdate"
+          responses:
+            "200":
+              $ref: "#/components/responses/ProductOk"
+        delete:
+          tags:
+            - Commerce
+          summary: Delete product
+          operationId: deleteProduct
+          responses:
+            "204":
+              description: No Content
+      /orders:
+        get:
+          tags:
+            - Commerce
+          summary: List orders (cursor pagination)
+          operationId: listOrders
+          parameters:
+            - $ref: "#/components/parameters/after"
+            - $ref: "#/components/parameters/before"
+            - $ref: "#/components/parameters/limit"
+            - in: query
+              name: status
+              schema:
+                type: string
+                enum:
+                  - pending
+                  - paid
+                  - shipped
+                  - delivered
+                  - cancelled
+          responses:
+            "200":
+              description: Orders
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CursorOrders"
+        post:
+          tags:
+            - Commerce
+          summary: Create an order
+          operationId: createOrder
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/OrderCreate"
+          responses:
+            "202":
+              description: Accepted - order processing as async job
+              headers:
+                Location:
+                  description: Job status endpoint
+                  schema:
+                    type: string
+                    format: uri
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Job"
+      /orders/{orderId}:
+        parameters:
+          - $ref: "#/components/parameters/orderId"
+        get:
+          tags:
+            - Commerce
+          summary: Get order by ID
+          operationId: getOrder
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Order"
+            "404":
+              $ref: "#/components/responses/NotFound"
+        delete:
+          tags:
+            - Commerce
+          summary: Cancel order
+          operationId: cancelOrder
+          responses:
+            "202":
+              description: Cancel requested
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Job"
+      /files:
+        post:
+          tags:
+            - Files
+          summary: Upload a file (multipart)
+          operationId: uploadFile
+          requestBody:
+            required: true
+            content:
+              multipart/form-data:
+                schema:
+                  type: object
+                  properties:
+                    file:
+                      type: string
+                      format: binary
+                    folder:
+                      type: string
+                    metadata:
+                      type: object
+                      additionalProperties:
+                        type: string
+          responses:
+            "201":
+              description: Created
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UploadResult"
+        get:
+          tags:
+            - Files
+          summary: List files
+          operationId: listFiles
+          parameters:
+            - $ref: "#/components/parameters/page"
+            - $ref: "#/components/parameters/limit"
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/PaginatedFiles"
+      /files/{fileId}:
+        parameters:
+          - $ref: "#/components/parameters/fileId"
+        get:
+          tags:
+            - Files
+          summary: Get file metadata
+          operationId: getFile
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/FileObject"
+        delete:
+          tags:
+            - Files
+          summary: Delete file
+          operationId: deleteFile
+          responses:
+            "204":
+              description: No Content
+      /files/{fileId}/download:
+        get:
+          tags:
+            - Files
+          summary: Download file content
+          operationId: downloadFile
+          parameters:
+            - $ref: "#/components/parameters/fileId"
+          responses:
+            "200":
+              description: File stream
+              content:
+                application/octet-stream:
+                  schema:
+                    type: string
+                    format: binary
+      /search:
+        get:
+          tags:
+            - Search
+          summary: Search across entities
+          operationId: search
+          parameters:
+            - in: query
+              name: q
+              required: true
+              schema:
+                type: string
+            - in: query
+              name: types
+              description: Which entity types to search
+              schema:
+                type: array
+                items:
+                  type: string
+                  enum:
+                    - user
+                    - product
+                    - order
+                    - file
+                style: form
+                explode: false
+            - in: header
+              name: Accept-Language
+              schema:
+                type: string
+          responses:
+            "200":
+              description: NDJSON stream of results (one JSON object per line)
+              content:
+                application/x-ndjson:
+                  schema:
+                    type: string
+                    description: NDJSON lines
+      /analytics/reports:
+        post:
+          tags:
+            - Analytics
+          summary: Generate an analytics report
+          operationId: createReport
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/AnalyticsRequest"
+          responses:
+            "202":
+              description: Accepted - report generation job
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Job"
+      /jobs/{jobId}:
+        parameters:
+          - $ref: "#/components/parameters/jobId"
+        get:
+          tags:
+            - Jobs
+          summary: Poll job status
+          operationId: getJob
+          responses:
+            "200":
+              description: Job status
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Job"
+            "303":
+              description: See other (result URL in Location)
+              headers:
+                Location:
+                  description: URL to the final resource
+                  schema:
+                    type: string
+                    format: uri
+      /notifications:
+        get:
+          tags:
+            - Notifications
+          summary: List notifications
+          operationId: listNotifications
+          parameters:
+            - $ref: "#/components/parameters/page"
+            - $ref: "#/components/parameters/limit"
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/PaginatedNotifications"
+        post:
+          tags:
+            - Notifications
+          summary: Send a notification
+          operationId: createNotification
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/NotificationCreate"
+          responses:
+            "201":
+              description: Created
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/Notification"
+      /batch:
+        post:
+          tags:
+            - Batch
+          summary: Execute a batch of sub-requests
+          operationId: batch
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/BatchRequest"
+          responses:
+            "200":
+              description: Multi-status-like response per sub-request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/BatchResponse"
+      /health:
+        get:
+          tags:
+            - System
+          summary: Health check
+          operationId: health
+          responses:
+            "200":
+              description: OK
+              content:
+                text/plain:
+                  schema:
+                    type: string
+    webhooks:
+      orderStatus:
+        post:
+          summary: Receive order status updates
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/OrderEvent"
+          responses:
+            "200":
+              description: Acknowledge
+    components:
+      securitySchemes:
+        BearerAuth:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+        ApiKeyAuth:
+          type: apiKey
+          in: header
+          name: X-API-Key
+        OAuth2:
+          type: oauth2
+          flows:
+            clientCredentials:
+              tokenUrl: https://api.megaplatform.com/v1/auth/token
+              scopes:
+                read: Read access
+                write: Write access
+            authorizationCode:
+              authorizationUrl: https://api.megaplatform.com/oauth/authorize
+              tokenUrl: https://api.megaplatform.com/oauth/token
+              scopes:
+                read: Read access
+                write: Write access
+        mTLS:
+          type: mutualTLS
+      headers:
+        X-Total-Count:
+          description: Total resources available for the request
+          schema:
+            type: integer
+            minimum: 0
+      parameters:
+        userId:
+          name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[a-zA-Z0-9_-]{6,}$
+        productId:
+          name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+        orderId:
+          name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+        fileId:
+          name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+        jobId:
+          name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+        page:
+          name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        limit:
+          name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 25
+        sort:
+          name: sort
+          in: query
+          description: Sort by field (prefix with - for descending)
+          schema:
+            type: string
+            example: -createdAt
+        fields:
+          name: fields
+          in: query
+          description: Comma-separated field selection
+          schema:
+            type: string
+            example: id,name,email
+        after:
+          name: after
+          in: query
+          schema:
+            type: string
+            description: Cursor pointing after
+        before:
+          name: before
+          in: query
+          schema:
+            type: string
+            description: Cursor pointing before
+        idempotencyKey:
+          name: Idempotency-Key
+          in: header
+          required: false
+          schema:
+            type: string
+        ifMatch:
+          name: If-Match
+          in: header
+          required: false
+          schema:
+            type: string
+            description: ETag for optimistic concurrency
+      requestBodies:
+        CsvUpload:
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: CSV payload
+          required: true
+      responses:
+        BadRequest:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        Unauthorized:
+          description: Unauthorized
+          headers:
+            WWW-Authenticate:
+              description: Auth challenge
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        NotFound:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        Conflict:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        PayloadTooLarge:
+          description: Payload too large
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        PreconditionFailed:
+          description: Precondition failed (ETag mismatch)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        ProductOk:
+          description: Product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        UpdatedUser:
+          description: Updated user
+          headers:
+            ETag:
+              description: New entity tag
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+      schemas:
+        TokenResponse:
+          type: object
+          properties:
+            token_type:
+              type: string
+              example: Bearer
+            access_token:
+              type: string
+            refresh_token:
+              type: string
+            expires_in:
+              type: integer
+              example: 3600
+            scope:
+              type: string
+          required:
+            - token_type
+            - access_token
+            - expires_in
+        Error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                  issue:
+                    type: string
+          required:
+            - code
+            - message
+        Money:
+          type: object
+          properties:
+            currency:
+              type: string
+              minLength: 3
+              maxLength: 3
+            amount:
+              type: number
+              format: decimal
+          required:
+            - currency
+            - amount
+        Address:
+          type: object
+          properties:
+            line1:
+              type: string
+            line2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            postalCode:
+              type: string
+            country:
+              type: string
+              minLength: 2
+              maxLength: 2
+        UserBase:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+              format: email
+            locale:
+              type: string
+              default: en
+            role:
+              type: string
+              enum:
+                - owner
+                - admin
+                - member
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+        User:
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: string
+                createdAt:
+                  type: string
+                  format: date-time
+                updatedAt:
+                  type: string
+                  format: date-time
+                etag:
+                  type: string
+            - $ref: "#/components/schemas/UserBase"
+        UserCreate:
+          allOf:
+            - $ref: "#/components/schemas/UserBase"
+          required:
+            - email
+            - name
+        UserReplace:
+          allOf:
+            - $ref: "#/components/schemas/UserBase"
+          required:
+            - email
+            - name
+            - role
+        UserUpdate:
+          type: object
+          properties:
+            name:
+              type: string
+            locale:
+              type: string
+            role:
+              type: string
+              enum:
+                - owner
+                - admin
+                - member
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+        PaginatedUsers:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/User"
+            meta:
+              $ref: "#/components/schemas/PaginationMeta"
+        ProductBase:
+          type: object
+          properties:
+            sku:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            price:
+              $ref: "#/components/schemas/Money"
+            tags:
+              type: array
+              items:
+                type: string
+            attributes:
+              type: object
+              additionalProperties:
+                type: string
+        Product:
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: string
+                createdAt:
+                  type: string
+                  format: date-time
+                updatedAt:
+                  type: string
+                  format: date-time
+            - $ref: "#/components/schemas/ProductBase"
+        ProductCreate:
+          allOf:
+            - $ref: "#/components/schemas/ProductBase"
+          required:
+            - sku
+            - name
+            - price
+        ProductReplace:
+          allOf:
+            - $ref: "#/components/schemas/ProductBase"
+          required:
+            - sku
+            - name
+            - price
+        ProductUpdate:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            price:
+              $ref: "#/components/schemas/Money"
+            tags:
+              type: array
+              items:
+                type: string
+        PaginatedProducts:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Product"
+            meta:
+              $ref: "#/components/schemas/PaginationMeta"
+        OrderItem:
+          type: object
+          properties:
+            productId:
+              type: string
+            quantity:
+              type: integer
+              minimum: 1
+            unitPrice:
+              $ref: "#/components/schemas/Money"
+          required:
+            - productId
+            - quantity
+        Order:
+          type: object
+          properties:
+            id:
+              type: string
+            status:
+              type: string
+              enum:
+                - pending
+                - paid
+                - shipped
+                - delivered
+                - cancelled
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/OrderItem"
+            subtotal:
+              $ref: "#/components/schemas/Money"
+            tax:
+              $ref: "#/components/schemas/Money"
+            total:
+              $ref: "#/components/schemas/Money"
+            shippingAddress:
+              $ref: "#/components/schemas/Address"
+            billingAddress:
+              $ref: "#/components/schemas/Address"
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+        OrderCreate:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/OrderItem"
+            shippingAddress:
+              $ref: "#/components/schemas/Address"
+            billingAddress:
+              $ref: "#/components/schemas/Address"
+            paymentMethod:
+              type: string
+              enum:
+                - card
+                - wallet
+                - bank_transfer
+                - cod
+          required:
+            - items
+            - paymentMethod
+        CursorOrders:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Order"
+            paging:
+              type: object
+              properties:
+                next:
+                  type: string
+                  nullable: true
+                prev:
+                  type: string
+                  nullable: true
+        UploadResult:
+          type: object
+          properties:
+            id:
+              type: string
+            fileName:
+              type: string
+            contentType:
+              type: string
+            size:
+              type: integer
+            url:
+              type: string
+              format: uri
+        FileObject:
+          type: object
+          properties:
+            id:
+              type: string
+            folder:
+              type: string
+            name:
+              type: string
+            size:
+              type: integer
+            checksum:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+        PaginatedFiles:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/FileObject"
+            meta:
+              $ref: "#/components/schemas/PaginationMeta"
+        AnalyticsRequest:
+          type: object
+          properties:
+            name:
+              type: string
+              enum:
+                - sales_summary
+                - user_growth
+                - churn
+            range:
+              type: object
+              properties:
+                from:
+                  type: string
+                  format: date
+                to:
+                  type: string
+                  format: date
+              required:
+                - from
+                - to
+            dimensions:
+              type: array
+              items:
+                type: string
+                enum:
+                  - day
+                  - week
+                  - month
+                  - product
+                  - country
+            metrics:
+              type: array
+              items:
+                type: string
+                enum:
+                  - revenue
+                  - orders
+                  - users
+                  - arpu
+            format:
+              type: string
+              enum:
+                - json
+                - csv
+          required:
+            - name
+            - range
+        NotificationBase:
+          type: object
+          properties:
+            channel:
+              type: string
+              enum:
+                - email
+                - sms
+                - push
+                - webhook
+            template:
+              type: string
+            to:
+              type: string
+            variables:
+              type: object
+              additionalProperties:
+                type: string
+        Notification:
+          allOf:
+            - $ref: "#/components/schemas/NotificationBase"
+            - type: object
+              properties:
+                id:
+                  type: string
+                status:
+                  type: string
+                  enum:
+                    - queued
+                    - sent
+                    - failed
+                createdAt:
+                  type: string
+                  format: date-time
+        NotificationCreate:
+          allOf:
+            - $ref: "#/components/schemas/NotificationBase"
+          required:
+            - channel
+            - template
+            - to
+        PaginatedNotifications:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Notification"
+            meta:
+              $ref: "#/components/schemas/PaginationMeta"
+        BatchRequest:
+          type: object
+          properties:
+            requests:
+              type: array
+              items:
+                type: object
+                properties:
+                  method:
+                    type: string
+                    enum:
+                      - GET
+                      - POST
+                      - PUT
+                      - PATCH
+                      - DELETE
+                  path:
+                    type: string
+                  headers:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  body:
+                    oneOf:
+                      - type: object
+                      - type: array
+                      - type: string
+                required:
+                  - method
+                  - path
+          required:
+            - requests
+        BatchResponse:
+          type: object
+          properties:
+            responses:
+              type: array
+              items:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                  headers:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  body:
+                    oneOf:
+                      - type: object
+                      - type: array
+                      - type: string
+        Job:
+          type: object
+          properties:
+            id:
+              type: string
+            status:
+              type: string
+              enum:
+                - queued
+                - running
+                - succeeded
+                - failed
+            progress:
+              type: integer
+              minimum: 0
+              maximum: 100
+            resultUrl:
+              type: string
+              format: uri
+              nullable: true
+            error:
+              $ref: "#/components/schemas/Error"
+        OrderEvent:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - order.created
+                - order.paid
+                - order.shipped
+                - order.cancelled
+            data:
+              type: object
+              properties:
+                order:
+                  $ref: "#/components/schemas/Order"
+            sentAt:
+              type: string
+              format: date-time
+        PaginationMeta:
+          type: object
+          properties:
+            page:
+              type: integer
+            limit:
+              type: integer
+            total:
+              type: integer
+      examples:
+        ExampleUser:
+          value:
+            id: usr_123
+            name: Sam
+            email: sam@example.com
+            role: member
+            createdAt: 2025-01-01T00:00:00Z
+            updatedAt: 2025-01-01T00:00:00Z
+      callbacks:
+        onJobFinished:
+          https://client.example.com/hooks/job:
+            post:
+              requestBody:
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        jobId:
+                          type: string
+                        status:
+                          type: string
+                        resultUrl:
+                          type: string
+                          format: uri
+              responses:
+                "200":
+                  description: Ack
+  meta:
+    id: spc_a403a4c8868b495bacb74fe95a65ae39
+    created: 1761212175851
+    modified: 1761212247588

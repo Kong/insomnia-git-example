@@ -1,5 +1,4 @@
 type: collection.insomnia.rest/5.0
-schema_version: "5.1"
 name: 11.6.2
 meta:
   id: wrk_1d1a7a62face4f8c81d7bab8c6c33ee4
@@ -22,12 +21,8 @@ collection:
         value: insomnia/11.6.2
       - name: foo
         value: bar
-        description: ""
-        disabled: false
       - name: foo
         value: bar
-        description: ""
-        disabled: true
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -51,16 +46,10 @@ collection:
         value: insomnia/11.6.2
       - name: foo
         value: bar
-        description: ""
-        disabled: false
       - name: foo
         value: bar
-        description: ""
-        disabled: true
       - name: disabled-header
         value: foo
-        description: desc
-        disabled: true
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -69,13 +58,6 @@ collection:
         send: true
         store: true
       rebuildPath: true
-  - name: An Empty Folder
-    meta:
-      id: fld_6d828dbb66d14d4ea8ceecbf8295a80a
-      created: 1761211457907
-      modified: 1761211457907
-      sortKey: -1761211457907
-      description: ""
   - url: wss://ws.ifelse.io/
     name: New Socket.IO Request
     meta:
@@ -87,8 +69,8 @@ collection:
     settings:
       encodeUrl: true
       cookies:
-        store: true
         send: true
+        store: true
     headers:
       - name: User-Agent
         value: insomnia/11.6.2
@@ -126,9 +108,10 @@ environments:
       meta:
         id: env_4bec71c1e4344911a44a87b9a6db6345
         created: 1761211503871
-        modified: 1761211519107
+        modified: 1761211909317
         isPrivate: false
         sortKey: 1761211503871
       data:
         env-key: env-name
         var-env: "{% os 'arch', '' %}"
+      color: "#f50f0f"
