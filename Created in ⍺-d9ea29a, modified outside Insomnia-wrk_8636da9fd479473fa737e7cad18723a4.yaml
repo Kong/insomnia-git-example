@@ -1,0 +1,99 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Created in ⍺-d9ea29a, modified outside Insomnia
+meta:
+  id: wrk_8636da9fd479473fa737e7cad18723a4
+  created: 1761212993400
+  modified: 1761212993400
+  description: ""
+collection:
+  - url: ""
+    name: Empty Request
+    meta:
+      id: req_ac6c783c97824198892f96ad97d43aad
+      created: 1759773334929
+      modified: 1759773545301
+      isPrivate: false
+      description: ""
+      sortKey: -1759773334929
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.2-alpha-pr-d9ea29a.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://example.com/api/uploader
+    name: Multipart; File
+    meta:
+      id: req_e66abba5796a46c6a2042c00bfe697f3
+      created: 1759773551394
+      modified: 1759773649459
+      isPrivate: false
+      description: ""
+      sortKey: -1759773551394
+    method: PUT
+    body:
+      mimeType: multipart/form-data
+      params:
+        - name: file
+          value: ""
+          fileName: /path/to/your/image/file.jpg
+          type: file
+        - name: description
+          value: An example image upload that has been changed.
+          type: text
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+    scripts:
+      preRequest: >
+        // Generate a UUID
+
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+
+        // Set the headers dynamically
+
+        const now = new Date().toString();
+
+        const requestId = generateUUID();
+
+
+        insomnia.request.headers.add({ name: 'X-Timestamp-ms', value: now });
+
+        insomnia.request.headers.add({ name: 'X-Request-ID', value: requestId
+        });
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_e25f2e8da47549d7abb3f2443eb926f4
+    created: 1759773330071
+    modified: 1759773330071
+environments:
+  name: Base Environment
+  meta:
+    id: env_cce7c0b1b6b144f68029019f6e1239e8
+    created: 1759773330070
+    modified: 1759773330070
+    isPrivate: false
