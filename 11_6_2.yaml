@@ -1,4 +1,5 @@
 type: collection.insomnia.rest/5.0
+schema_version: "5.1"
 name: 11.6.2
 meta:
   id: wrk_1d1a7a62face4f8c81d7bab8c6c33ee4
@@ -19,14 +20,11 @@ collection:
     headers:
       - name: User-Agent
         value: insomnia/11.6.2
-        id: pair_40cf4693c1a54173a7aa8ca0393f839e
-      - id: pair_4819480603544b26a2447c4fd7fcd09b
-        name: foo
+      - name: foo
         value: bar
         description: ""
         disabled: false
-      - id: pair_a2951d3b199b40e08be0a8f2dc4ec749
-        name: foo
+      - name: foo
         value: bar
         description: ""
         disabled: true
@@ -51,19 +49,15 @@ collection:
     headers:
       - name: User-Agent
         value: insomnia/11.6.2
-        id: pair_40cf4693c1a54173a7aa8ca0393f839e
-      - id: pair_4819480603544b26a2447c4fd7fcd09b
-        name: foo
+      - name: foo
         value: bar
         description: ""
         disabled: false
-      - id: pair_a2951d3b199b40e08be0a8f2dc4ec749
-        name: foo
+      - name: foo
         value: bar
         description: ""
         disabled: true
-      - id: pair_3f20fa6f3e954f5aafbea320835abb68
-        name: disabled-header
+      - name: disabled-header
         value: foo
         description: desc
         disabled: true
@@ -87,14 +81,14 @@ collection:
     meta:
       id: socketio-req_825428f7c35549228b6459adb5f45429
       created: 1761211376961
-      modified: 1761211431723
+      modified: 1761211654597
       description: ""
       sortKey: -1761211376961
     settings:
       encodeUrl: true
       cookies:
-        send: true
         store: true
+        send: true
     headers:
       - name: User-Agent
         value: insomnia/11.6.2
@@ -102,7 +96,7 @@ collection:
       - id: socketIO-event_b0b0ce1678b94e5b8ae38138853cafc3
         eventName: test-event
         desc: event-description
-        isOpen: false
+        isOpen: true
 cookieJar:
   name: Default Jar
   meta:
