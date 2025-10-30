@@ -239,6 +239,42 @@ cookieJar:
     id: jar_b3fd75c528f62903247fadde8d068814836bd14e
     created: 1761833466099
     modified: 1761833466099
+  cookies:
+    - id: d8adea0e-65ba-4853-825e-1ec923a6abb3
+      key: foo
+      value: bar
+      domain: domain.com
+      path: /
+      secure: false
+      httpOnly: false
+    - id: 4b47474a-d4b3-465b-8ba7-8e44111ddf9b
+      key: foo
+      value: bar
+      domain: domain.com
+      path: /
+      secure: false
+      httpOnly: false
+    - id: 62e4f678-739d-403c-8e52-fe897bb88cc3
+      key: foo
+      value: bar
+      domain: domain.com
+      path: /
+      secure: false
+      httpOnly: false
+    - id: 598f6963-76ef-4de4-8ce8-c9a1fb5d5bcb
+      key: foo
+      value: bar
+      domain: domain.com
+      path: /
+      secure: false
+      httpOnly: false
+    - id: 04a2b2a5-ecdf-43cf-b93f-9d8d32e6a3d0
+      key: foo
+      value: bar
+      domain: domain.com
+      path: /
+      secure: false
+      httpOnly: false
 environments:
   name: Base Environment
   meta:
