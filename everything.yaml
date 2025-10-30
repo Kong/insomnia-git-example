@@ -1,0 +1,258 @@
+type: collection.insomnia.rest/5.0
+name: Everything
+meta:
+  id: wrk_ec5b78172b4b401e990e1f05bd0279ef
+  created: 1761833466096
+  modified: 1761833466096
+  description: ""
+collection:
+  - name: User
+    meta:
+      id: fld_0bb7760023294855be84e36eedd158c1
+      created: 1761833477916
+      modified: 1761833477916
+      sortKey: -1761833477916
+      description: ""
+    children:
+      - url: "{{ _.base_url }}/user/login"
+        name: login
+        meta:
+          id: req_4a718571131347b6bf7c1960ac0aa461
+          created: 1761833482057
+          modified: 1761833710936
+          isPrivate: false
+          description: |-
+            # The best login API ever
+
+            This is it
+          sortKey: -1761833482057
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - id: pair_e9b1886398444e8899fd4ff3d6d4bf1b
+              name: username
+              value: test
+              description: ""
+              disabled: false
+            - id: pair_ff276a3cb5e94061b126d988fe7785ba
+              name: password
+              value: "123456"
+              description: ""
+              disabled: false
+              type: text
+              multiline: false
+            - id: pair_01566a38af034336bd651138cdc683fe
+              name: user_metadata
+              value: |-
+                {
+                	"isAdmin": true,
+                	"isCEO": true
+                }
+              description: ""
+              disabled: false
+              type: text
+              multiline: true
+            - id: pair_229b8b11bf5848e385ca5bf52dbc4442
+              name: user_image
+              value: ""
+              description: ""
+              disabled: false
+              type: file
+              fileName: /Users/james.gatz@konghq.com/Downloads/konger.png
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+            id: pair_860e3d676bad41e8a9f907516e90f5ac
+          - name: User-Agent
+            value: insomnia/11.4.0
+            id: pair_1ad4440ff417421f9aef2bf089739d81
+          - id: pair_0e6bbdd096af412e92daf2f21044259b
+            name: X-User-CEO
+            value: "true"
+            description: "{{test}}"
+            disabled: false
+          - id: pair_51421f5a68a441548bb307a58dff7344
+            name: X-Request-ID
+            value: "123456"
+            description: the id of the request
+            disabled: false
+        authentication:
+          type: bearer
+          token: test_token
+          prefix: pre
+        scripts:
+          preRequest: console.log(insomnia.environment.has('foo'))
+          afterResponse: console.log(insomnia.environment.get('foo'))
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/user/subscribe"
+        name: subscribe
+        meta:
+          id: req_c38f8ca5b26a4b5eb615b724166a1e34
+          created: 1761833717860
+          modified: 1761833821625
+          isPrivate: false
+          description: ""
+          sortKey: -1761833481957
+        method: GET
+        parameters:
+          - id: pair_64f90984e52d4a04a308bb3ae93604ef
+            name: isTrue
+            value: "true"
+            description: ""
+            disabled: false
+          - id: pair_c4d8a402febb48d8ac5bd610d3af44c6
+            name: isFalse
+            value: "false"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.4.0
+          - name: Accept
+            value: text/event-stream
+        authentication:
+          type: oauth2
+          grantType: authorization_code
+          authorizationUrl: example.com
+          accessTokenUrl: example.com
+          clientId: "1234"
+          clientSecret: "123456"
+          redirectUrl: example.com
+          scope: all
+          state: all
+          tokenPrefix: pre
+          audience: coolkids
+          resource: everything
+          origin: insomnia
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: gRPC
+    meta:
+      id: fld_8981a05d54604f439466d6a35c011e93
+      created: 1761833875153
+      modified: 1761833875153
+      sortKey: -1761833875153
+      description: ""
+    children:
+      - url: grpcb.in:9000
+        name: New Request
+        meta:
+          id: greq_ab21fb646fba461ca7e5806c37d23012
+          created: 1761833834150
+          modified: 1761833878863
+          isPrivate: false
+          sortKey: -1761833878831
+          description: ""
+        body:
+          text: |-
+            {
+            	"test": 1
+            }
+        metadata:
+          - id: pair_6cb76ee99b904e5983bb4471c51b97ad
+            name: X-ID
+            value: "1"
+            description: ""
+            disabled: false
+          - id: pair_c754e2d193c545b28b91ad62c16cd4b2
+            name: X-Name
+            value: test
+            description: ""
+            disabled: false
+        protoFileId: ""
+        protoMethodName: /addsvc.Add/Sum
+        reflectionApi:
+          enabled: false
+          url: https://buf.build
+          apiKey: ""
+          module: buf.build/connectrpc/eliza
+  - name: FolderTree
+    meta:
+      id: fld_e228a6e508904faea73800e38d5348de
+      created: 1761833935913
+      modified: 1761833935913
+      sortKey: -1761833935913
+      description: ""
+    children:
+      - name: Sub1
+        meta:
+          id: fld_abc04f932b5a4eaf8bd6e770f3750ce3
+          created: 1761833951944
+          modified: 1761833965874
+          sortKey: -1761833951944
+          description: ""
+        children:
+          - name: Sub2
+            meta:
+              id: fld_78b67cb6a815439eb98672d13d73e96c
+              created: 1761833979650
+              modified: 1761833979650
+              sortKey: -1761833979650
+              description: ""
+            children:
+              - url: wss://example.com/chat
+                name: chat
+                meta:
+                  id: ws-req_e04e7b675c2f44b2a1a3c72acf0253e9
+                  created: 1761833884843
+                  modified: 1761833997813
+                  description: ""
+                  sortKey: -1761833997767
+                settings:
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                headers:
+                  - name: User-Agent
+                    value: insomnia/11.4.0
+        authentication:
+          type: apikey
+          disabled: false
+          key: my_key
+          value: test
+          addTo: header
+        headers:
+          - id: pair_85930822e83d46c8ac34361c0e943d5a
+            name: "123"
+            value: "321"
+            description: ""
+            disabled: false
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_b3fd75c528f62903247fadde8d068814836bd14e
+    created: 1761833466099
+    modified: 1761833466099
+environments:
+  name: Base Environment
+  meta:
+    id: env_b3fd75c528f62903247fadde8d068814836bd14e
+    created: 1761833466098
+    modified: 1761833466098
+    isPrivate: false
+  subEnvironments:
+    - name: New Environment
+      meta:
+        id: env_576b47fd1dd34ae9958b41535beb6061
+        created: 1761833497633
+        modified: 1761833506025
+        isPrivate: false
+        sortKey: 1761833497633
+      data:
+        base_url: localhost:3000
