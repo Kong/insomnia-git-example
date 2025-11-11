@@ -1,5 +1,4 @@
 type: collection.insomnia.rest/5.0
-schema_version: "5.1"
 name: 12.1.0
 meta:
   id: wrk_bc6ff65e980340159eb60b595d81c5fc
@@ -12,7 +11,7 @@ collection:
     meta:
       id: req_7951485dacc24e02bbec7df92b433c6b
       created: 1762847119559
-      modified: 1762847288541
+      modified: 1762847633692
       isPrivate: false
       description: ""
       sortKey: -1762847119559
@@ -26,27 +25,26 @@ collection:
     parameters:
       - name: foo
         value: bar
-        description: ""
         disabled: false
       - name: foo
         value: bar2
-        description: ""
         disabled: true
       - name: foo
         value: bar3
-        description: Description
         disabled: false
     headers:
       - name: Content-Type
         value: application/json
+        id: pair_b8cb410fd47848e283d1e4dbfe94fe4b
+        description: desc 123
       - name: User-Agent
         value: insomnia/12.0.0
-        description: ""
-        disabled: true
+        id: pair_e3433c0f29e14f2b9891a35c938ac013
+        description: "desc "
       - name: foo
         value: bar1
-        description: ""
-        disabled: false
+        id: pair_63eea69e85214b92879ee74540f20648
+        description: desc by curry
     scripts:
       preRequest: insomnia.environment.set("pavlos")
       afterResponse: insomnia.environment.get("Pavlos")
@@ -58,13 +56,6 @@ collection:
         send: true
         store: true
       rebuildPath: true
-  - name: My Folder
-    meta:
-      id: fld_afb1fdb0a6ae40ab976009ac82113153
-      created: 1762847031407
-      modified: 1762847031407
-      sortKey: -1762847031407
-      description: ""
 cookieJar:
   name: Default Jar
   meta:
