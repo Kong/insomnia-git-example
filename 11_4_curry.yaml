@@ -1,0 +1,79 @@
+type: collection.insomnia.rest/5.0
+name: 11.4-curry
+meta:
+  id: wrk_f468406350e948f4b2acca90291d9fb8
+  created: 1762846344773
+  modified: 1762846344773
+  description: ""
+collection:
+  - name: My Folder
+    meta:
+      id: fld_00af78d6f89e49909131b08436915f4f
+      created: 1762846387402
+      modified: 1762846387402
+      sortKey: -1762846387402
+      description: ""
+    children:
+      - url: httpbin.org/post
+        name: post Request
+        meta:
+          id: req_ce5243502bed4faf9c88afff68adf0a2
+          created: 1762846389658
+          modified: 1762846411393
+          isPrivate: false
+          description: ""
+          sortKey: -1762846389658
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/11.4.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - url: httpbin.org/get
+    name: get request
+    meta:
+      id: req_24a806a2b2ec4dc48255a7a94755dc04
+      created: 1762846350725
+      modified: 1762846395599
+      isPrivate: false
+      description: ""
+      sortKey: -1762846350725
+    method: GET
+    parameters:
+      - id: pair_c4b4e785da1b4c159ffe667ade97e036
+        name: name
+        value: curry
+        description: ""
+        disabled: false
+    headers:
+      - name: User-Agent
+        value: insomnia/11.4.0
+    scripts:
+      preRequest: console.log("this is a pre script")
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_0de8a9cb9a096270d2935fb7441d03f28b6bd2ca
+    created: 1762846344777
+    modified: 1762846344777
+environments:
+  name: Base Environment
+  meta:
+    id: env_0de8a9cb9a096270d2935fb7441d03f28b6bd2ca
+    created: 1762846344776
+    modified: 1762846344776
+    isPrivate: false

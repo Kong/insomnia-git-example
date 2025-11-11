@@ -30,20 +30,19 @@ collection:
         body:
           mimeType: multipart/form-data
           params:
-            - id: pair_e9b1886398444e8899fd4ff3d6d4bf1b
-              name: username
+            - name: username
               value: test
               description: ""
               disabled: false
-            - id: pair_ff276a3cb5e94061b126d988fe7785ba
-              name: password
+              id: pair_e9b1886398444e8899fd4ff3d6d4bf1b
+            - name: password
               value: "123456"
               description: ""
               disabled: false
-              type: text
               multiline: false
-            - id: pair_01566a38af034336bd651138cdc683fe
-              name: user_metadata
+              id: pair_ff276a3cb5e94061b126d988fe7785ba
+              type: text
+            - name: user_metadata
               value: |-
                 {
                 	"isAdmin": true,
@@ -51,32 +50,25 @@ collection:
                 }
               description: ""
               disabled: false
-              type: text
               multiline: true
-            - id: pair_229b8b11bf5848e385ca5bf52dbc4442
-              name: user_image
+              id: pair_01566a38af034336bd651138cdc683fe
+              type: text
+            - name: user_image
               value: ""
               description: ""
               disabled: false
-              type: file
+              id: pair_229b8b11bf5848e385ca5bf52dbc4442
               fileName: /Users/james.gatz@konghq.com/Downloads/konger.png
+              type: file
         headers:
           - name: Content-Type
             value: multipart/form-data
-            id: pair_860e3d676bad41e8a9f907516e90f5ac
           - name: User-Agent
             value: insomnia/11.4.0
-            id: pair_1ad4440ff417421f9aef2bf089739d81
-          - id: pair_0e6bbdd096af412e92daf2f21044259b
-            name: X-User-CEO
+          - name: X-User-CEO
             value: "true"
-            description: "{{test}}"
-            disabled: false
-          - id: pair_51421f5a68a441548bb307a58dff7344
-            name: X-Request-ID
+          - name: X-Request-ID
             value: "123456"
-            description: the id of the request
-            disabled: false
         authentication:
           type: bearer
           token: test_token
@@ -103,16 +95,14 @@ collection:
           sortKey: -1761833481957
         method: GET
         parameters:
-          - id: pair_64f90984e52d4a04a308bb3ae93604ef
-            name: isTrue
+          - name: isTrue
             value: "true"
-            description: ""
             disabled: false
-          - id: pair_c4d8a402febb48d8ac5bd610d3af44c6
-            name: isFalse
+            id: pair_64f90984e52d4a04a308bb3ae93604ef
+          - name: isFalse
             value: "false"
-            description: ""
             disabled: false
+            id: pair_c4d8a402febb48d8ac5bd610d3af44c6
         headers:
           - name: User-Agent
             value: insomnia/11.4.0
@@ -121,17 +111,20 @@ collection:
         authentication:
           type: oauth2
           grantType: authorization_code
-          authorizationUrl: example.com
           accessTokenUrl: example.com
+          authorizationUrl: example.com
           clientId: "1234"
           clientSecret: "123456"
-          redirectUrl: example.com
+          audience: coolkids
           scope: all
+          resource: everything
+          redirectUrl: example.com
           state: all
           tokenPrefix: pre
-          audience: coolkids
-          resource: everything
           origin: insomnia
+        scripts:
+          preRequest: ""
+          afterResponse: ""
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -140,6 +133,9 @@ collection:
             send: true
             store: true
           rebuildPath: true
+    scripts:
+      afterResponse: ""
+      preRequest: ""
   - name: gRPC
     meta:
       id: fld_8981a05d54604f439466d6a35c011e93
@@ -163,13 +159,11 @@ collection:
             	"test": 1
             }
         metadata:
-          - id: pair_6cb76ee99b904e5983bb4471c51b97ad
-            name: X-ID
+          - name: X-ID
             value: "1"
             description: ""
             disabled: false
-          - id: pair_c754e2d193c545b28b91ad62c16cd4b2
-            name: X-Name
+          - name: X-Name
             value: test
             description: ""
             disabled: false
@@ -180,6 +174,9 @@ collection:
           url: https://buf.build
           apiKey: ""
           module: buf.build/connectrpc/eliza
+    scripts:
+      afterResponse: ""
+      preRequest: ""
   - name: FolderTree
     meta:
       id: fld_e228a6e508904faea73800e38d5348de
@@ -221,18 +218,24 @@ collection:
                 headers:
                   - name: User-Agent
                     value: insomnia/11.4.0
+            scripts:
+              afterResponse: ""
+              preRequest: ""
+        scripts:
+          afterResponse: ""
+          preRequest: ""
         authentication:
           type: apikey
-          disabled: false
           key: my_key
           value: test
+          disabled: false
           addTo: header
         headers:
-          - id: pair_85930822e83d46c8ac34361c0e943d5a
-            name: "123"
+          - name: "123"
             value: "321"
-            description: ""
-            disabled: false
+    scripts:
+      afterResponse: ""
+      preRequest: ""
 cookieJar:
   name: Default Jar
   meta:
