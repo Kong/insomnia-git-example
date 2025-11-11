@@ -43,16 +43,14 @@ cookieJar:
     created: 1754641326777
     modified: 1762846391977
   cookies:
-    - key: _octo
+    - id: c3a02668-13e0-4c26-9ea6-c66a8539e868
+      key: _octo
       value: GH1.1.662851154.1762846391
       domain: github.com
       path: /
       secure: true
+      httpOnly: false
       hostOnly: false
-      creation: 2025-11-11T07:33:11.974Z
-      lastAccessed: 2025-11-11T07:33:11.974Z
-      sameSite: lax
-      id: c3a02668-13e0-4c26-9ea6-c66a8539e868
 environments:
   name: Base Environment
   meta:
