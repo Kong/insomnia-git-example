@@ -23,6 +23,9 @@ collection:
         value: bar
       - name: foo
         value: bar2
+    scripts:
+      preRequest: ""
+      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true
