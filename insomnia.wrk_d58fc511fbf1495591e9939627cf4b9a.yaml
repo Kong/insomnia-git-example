@@ -29,9 +29,6 @@ collection:
       type: basic
       username: "{{ httpUsername }}"
       password: "{{ httpPassword }}"
-    scripts:
-      preRequest: ""
-      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -55,9 +52,6 @@ collection:
         value: "{{ xApiKey }}"
       - name: x-app-version
         value: "{{ xAppVersion }}"
-    scripts:
-      preRequest: ""
-      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -82,9 +76,6 @@ collection:
       accessTokenUrl: asdfasdfa
       authorizationUrl: adsfasdf
       clientSecret: asdfasdfasdf
-    scripts:
-      preRequest: ""
-      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -103,9 +94,6 @@ collection:
       description: ""
       sortKey: -1663680536013
     method: GET
-    scripts:
-      preRequest: ""
-      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -124,9 +112,6 @@ collection:
       description: ""
       sortKey: -1663682060582
     method: GET
-    scripts:
-      preRequest: ""
-      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true

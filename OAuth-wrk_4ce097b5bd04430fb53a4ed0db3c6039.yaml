@@ -1,0 +1,62 @@
+type: collection.insomnia.rest/5.0
+name: OAuth
+meta:
+  id: wrk_4ce097b5bd04430fb53a4ed0db3c6039
+  created: 1762846340429
+  modified: 1762846340429
+  description: ""
+collection:
+  - url: https://api.github.com/user/repos
+    name: repo
+    meta:
+      id: req_ac0ccf68342e40fc83afb02139cbc1bf
+      created: 1754641339426
+      modified: 1762846376658
+      isPrivate: false
+      description: ""
+      sortKey: -1754641339426
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.4.1-alpha-pr-a41c707.0
+    authentication:
+      type: oauth2
+      grantType: authorization_code
+      accessTokenUrl: https://github.com/login/oauth/access_token
+      authorizationUrl: https://github.com/login/oauth/authorize
+      clientId: 0a94c363552b47a9cefd
+      clientSecret: adsf
+      redirectUrl: ""
+      useDefaultBrowser: true
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_7e335b0fd10349ccb12ee2921c0fc916
+    created: 1754641326777
+    modified: 1762846391977
+  cookies:
+    - key: _octo
+      value: GH1.1.662851154.1762846391
+      domain: github.com
+      path: /
+      secure: true
+      hostOnly: false
+      creation: 2025-11-11T07:33:11.974Z
+      lastAccessed: 2025-11-11T07:33:11.974Z
+      sameSite: lax
+      id: c3a02668-13e0-4c26-9ea6-c66a8539e868
+environments:
+  name: Base Environment
+  meta:
+    id: env_254feffebaae4c6ba62460715c2338ad
+    created: 1754641326772
+    modified: 1754641326772
+    isPrivate: false
