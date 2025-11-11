@@ -6,12 +6,79 @@ meta:
   created: 1762846963000
   modified: 1762846963000
   description: ""
+collection:
+  - url: www.google.com
+    name: pavlos
+    meta:
+      id: req_7951485dacc24e02bbec7df92b433c6b
+      created: 1762847119559
+      modified: 1762847288541
+      isPrivate: false
+      description: ""
+      sortKey: -1762847119559
+    method: GET
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"foo": "bar"
+        }
+    parameters:
+      - name: foo
+        value: bar
+        description: ""
+        disabled: false
+      - name: foo
+        value: bar2
+        description: ""
+        disabled: true
+      - name: foo
+        value: bar3
+        description: Description
+        disabled: false
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.0.0
+        description: ""
+        disabled: true
+      - name: foo
+        value: bar1
+        description: ""
+        disabled: false
+    scripts:
+      preRequest: insomnia.environment.set("pavlos")
+      afterResponse: insomnia.environment.get("Pavlos")
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - name: My Folder
+    meta:
+      id: fld_afb1fdb0a6ae40ab976009ac82113153
+      created: 1762847031407
+      modified: 1762847031407
+      sortKey: -1762847031407
+      description: ""
 cookieJar:
   name: Default Jar
   meta:
     id: jar_0df482cb114ee445f6ec610f8227a20edebf993c
     created: 1762846963005
     modified: 1762846963005
+  cookies:
+    - id: a001c636-ac84-4b34-b4ae-2dccf0363ca1
+      key: foo
+      value: bar
+      domain: domain.com
+      path: /
+      secure: true
+      httpOnly: false
 environments:
   name: Base Environment
   meta:
