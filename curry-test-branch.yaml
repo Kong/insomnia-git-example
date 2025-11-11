@@ -1,0 +1,74 @@
+type: collection.insomnia.rest/5.0
+name: curry-test branch
+meta:
+  id: wrk_9d911f68761d4873b57b256766db53c6
+  created: 1762848053252
+  modified: 1762848053252
+  description: ""
+collection:
+  - name: My Folder
+    meta:
+      id: fld_7b39af53920c47a5b70033d4eb8a8988
+      created: 1762848060200
+      modified: 1762848060200
+      sortKey: -1762848060200
+      description: ""
+  - url: httpbin.org/get
+    name: New Request
+    meta:
+      id: req_80cc28dd8f434306a68b581eec526b9d
+      created: 1762848055523
+      modified: 1762848104902
+      isPrivate: false
+      description: xxx
+      sortKey: -1762848055523
+    method: GET
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "curry"
+        }
+    parameters:
+      - id: pair_dd73cf4bf181458086377e902f564efa
+        name: curry
+        value: "123"
+        description: desc
+        disabled: false
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_07f8d81678e94eea81f6963c842a81f7
+        description: desc
+      - name: User-Agent
+        value: insomnia/11.4.0
+        id: pair_a3974a3d7eef4c0084cc7a08ad4ddd9c
+        description: desc
+      - id: pair_e6189ceb6c344a9094d75d652d55ff05
+        name: x-test-curry
+        value: aaa
+        description: ""
+        disabled: false
+    scripts:
+      preRequest: const a = 1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_e49d04f7c93f99a79c07592a3e33ffafc8782665
+    created: 1762848053254
+    modified: 1762848105547
+environments:
+  name: Base Environment
+  meta:
+    id: env_e49d04f7c93f99a79c07592a3e33ffafc8782665
+    created: 1762848053254
+    modified: 1762848105547
+    isPrivate: false
