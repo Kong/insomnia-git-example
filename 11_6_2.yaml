@@ -23,9 +23,6 @@ collection:
         value: bar
       - name: foo
         value: bar
-    scripts:
-      preRequest: ""
-      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -53,9 +50,6 @@ collection:
         value: bar
       - name: disabled-header
         value: foo
-    scripts:
-      preRequest: ""
-      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true

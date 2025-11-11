@@ -122,9 +122,6 @@ collection:
           state: all
           tokenPrefix: pre
           origin: insomnia
-        scripts:
-          preRequest: ""
-          afterResponse: ""
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -133,9 +130,6 @@ collection:
             send: true
             store: true
           rebuildPath: true
-    scripts:
-      afterResponse: ""
-      preRequest: ""
   - name: gRPC
     meta:
       id: fld_8981a05d54604f439466d6a35c011e93
@@ -174,9 +168,6 @@ collection:
           url: https://buf.build
           apiKey: ""
           module: buf.build/connectrpc/eliza
-    scripts:
-      afterResponse: ""
-      preRequest: ""
   - name: FolderTree
     meta:
       id: fld_e228a6e508904faea73800e38d5348de
@@ -218,12 +209,6 @@ collection:
                 headers:
                   - name: User-Agent
                     value: insomnia/11.4.0
-            scripts:
-              afterResponse: ""
-              preRequest: ""
-        scripts:
-          afterResponse: ""
-          preRequest: ""
         authentication:
           type: apikey
           key: my_key
@@ -233,9 +218,6 @@ collection:
         headers:
           - name: "123"
             value: "321"
-    scripts:
-      afterResponse: ""
-      preRequest: ""
 cookieJar:
   name: Default Jar
   meta:
