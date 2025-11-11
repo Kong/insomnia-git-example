@@ -19,9 +19,6 @@ collection:
     headers:
       - name: User-Agent
         value: insomnia/11.6.2-alpha-pr-d9ea29a.0
-    scripts:
-      preRequest: ""
-      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true
@@ -76,7 +73,6 @@ collection:
 
         insomnia.request.headers.add({ name: 'X-Request-ID', value: requestId
         });
-      afterResponse: ""
     settings:
       renderRequestBody: true
       encodeUrl: true

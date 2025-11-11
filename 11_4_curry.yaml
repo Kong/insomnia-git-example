@@ -6,6 +6,34 @@ meta:
   modified: 1762846344773
   description: ""
 collection:
+  - url: httpbin.org/get
+    name: get request
+    meta:
+      id: req_24a806a2b2ec4dc48255a7a94755dc04
+      created: 1762846350725
+      modified: 1762846395599
+      isPrivate: false
+      description: ""
+      sortKey: -1762846350725
+    method: GET
+    parameters:
+      - name: name
+        value: curry
+        disabled: false
+        id: pair_c4b4e785da1b4c159ffe667ade97e036
+    headers:
+      - name: User-Agent
+        value: insomnia/11.4.0
+    scripts:
+      preRequest: console.log("this is a pre script")
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
   - name: My Folder
     meta:
       id: fld_00af78d6f89e49909131b08436915f4f
@@ -76,35 +104,6 @@ collection:
             send: true
             store: true
           rebuildPath: true
-  - url: httpbin.org/get
-    name: get request
-    meta:
-      id: req_24a806a2b2ec4dc48255a7a94755dc04
-      created: 1762846350725
-      modified: 1762846395599
-      isPrivate: false
-      description: ""
-      sortKey: -1762846350725
-    method: GET
-    parameters:
-      - id: pair_c4b4e785da1b4c159ffe667ade97e036
-        name: name
-        value: curry
-        description: ""
-        disabled: false
-    headers:
-      - name: User-Agent
-        value: insomnia/11.4.0
-    scripts:
-      preRequest: console.log("this is a pre script")
-    settings:
-      renderRequestBody: true
-      encodeUrl: true
-      followRedirects: global
-      cookies:
-        send: true
-        store: true
-      rebuildPath: true
 cookieJar:
   name: Default Jar
   meta:
