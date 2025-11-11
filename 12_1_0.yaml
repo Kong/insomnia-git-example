@@ -1,4 +1,5 @@
 type: collection.insomnia.rest/5.0
+schema_version: "5.1"
 name: 12.1.0
 meta:
   id: wrk_bc6ff65e980340159eb60b595d81c5fc
@@ -35,15 +36,12 @@ collection:
     headers:
       - name: Content-Type
         value: application/json
-        id: pair_b8cb410fd47848e283d1e4dbfe94fe4b
         description: desc 123
       - name: User-Agent
         value: insomnia/12.0.0
-        id: pair_e3433c0f29e14f2b9891a35c938ac013
         description: "desc "
       - name: foo
         value: bar1
-        id: pair_63eea69e85214b92879ee74540f20648
         description: desc by curry
     scripts:
       preRequest: insomnia.environment.set("pavlos")
@@ -56,6 +54,13 @@ collection:
         send: true
         store: true
       rebuildPath: true
+  - name: Pavlos
+    meta:
+      id: fld_57c94a27561e4dc2b4d05b7b1b13ac01
+      created: 1762847768720
+      modified: 1762847774819
+      sortKey: -1762847768720
+      description: ""
 cookieJar:
   name: Default Jar
   meta:
