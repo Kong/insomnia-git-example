@@ -38,7 +38,7 @@ collection:
     meta:
       id: fld_00af78d6f89e49909131b08436915f4f
       created: 1762846387402
-      modified: 1762846387402
+      modified: 1762846994671
       sortKey: -1762846387402
       description: ""
     children:
@@ -47,14 +47,55 @@ collection:
         meta:
           id: req_ce5243502bed4faf9c88afff68adf0a2
           created: 1762846389658
-          modified: 1762846411393
+          modified: 1762846991011
           isPrivate: false
-          description: ""
+          description: this is the document about post request
           sortKey: -1762846389658
         method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "curry"
+            }
+        parameters:
+          - id: pair_8117d8c5c3fa4fcdaa1308fe241c7f30
+            name: name
+            value: curry
+            description: ""
+            disabled: false
+          - id: pair_6404ecc3c1774cb284c604bbf4629256
+            name: aa
+            value: bb
+            description: ""
+            disabled: false
+          - id: pair_af58c51fa3e2473bb149d6fe7882afd3
+            name: cc
+            value: "{{curry}}"
+            description: ""
+            disabled: false
         headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_d2303c6f5f7a4c17bd34413602aa1fa3
           - name: User-Agent
             value: insomnia/11.4.0
+            id: pair_1d22d0e44ae748a89444cc965ef0e468
+          - id: pair_e1d6d5e289fd4fb49956b02feeeac9a1
+            name: x-test-curry
+            value: "123"
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "123"
+          prefix: test-token
+        scripts:
+          preRequest: |
+            console.log("this is pre script")
+            console.log('aaaaaa')
+            const a = 1;
+          afterResponse: console.log("this is after script")
         settings:
           renderRequestBody: true
           encodeUrl: true
@@ -68,11 +109,13 @@ cookieJar:
   meta:
     id: jar_0de8a9cb9a096270d2935fb7441d03f28b6bd2ca
     created: 1762846344777
-    modified: 1762846344777
+    modified: 1762846994671
 environments:
   name: Base Environment
   meta:
     id: env_0de8a9cb9a096270d2935fb7441d03f28b6bd2ca
     created: 1762846344776
-    modified: 1762846344776
+    modified: 1762846994671
     isPrivate: false
+  data:
+    curry: "123"
